@@ -1,0 +1,4 @@
+asyncio==3.4.3
+flet==0.22.*
+ngrok==1.2.0
+requests==2.31.0

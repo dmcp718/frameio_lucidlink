@@ -1,0 +1,24 @@
+FROM python:3.10-slim-bookworm
+
+WORKDIR /app 
+
+# Install dependencies from requirements.txt
+COPY container/requirements.txt ./
+RUN pip install -r requirements.txt
+
+# Arguments
+ARG BEARER_TOKEN
+ARG SAVE_PATH
+
+# Environment variables
+ENV BEARER_TOKEN=${BEARER_TOKEN}
+ENV SAVE_PATH=${SAVE_PATH}
+
+# Copy application code
+COPY container/listener.py ./
+
+# Expose the port webhook listener uses
+EXPOSE 8000  
+
+# Command to start application 
+CMD ["python", "listener.py"]
