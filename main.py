@@ -132,8 +132,6 @@ else:
     kv_store.close()
 
 mount_path = kv_store.get("save_path")
-print(f"mount_path: {mount_path}")
-
 
 def on_scroll(e: ft.OnScrollEvent):
     if e.pixels >= e.max_scroll_extent - 100:
@@ -163,7 +161,7 @@ def main(page: ft.Page):
     global log_thread, portVal, user_path
 
     createDB()
-    
+
     exit_button = create_exit_app_button()
 
     configCol = ConfigCol(kv_store, page)
