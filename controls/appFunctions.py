@@ -31,7 +31,6 @@ def check_podman_installed():
 def check_container_image():
     podman_path = shutil.which("podman")
     if not podman_path:
-        print("Podman is not installed. Please install Podman.")
         return False
 
     result = subprocess.run(
