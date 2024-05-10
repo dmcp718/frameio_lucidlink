@@ -18,7 +18,7 @@ fi
 if [ ! -d "venv" ]
 then
     echo "Virtual environment does not exist. Creating a new virtual environment..."
-    /usr/local/opt/python@3.10/bin/python3.10 -m venv venv
+    python3.10 -m venv venv
 fi
 
 # Check if the requirements.txt file exists
