@@ -132,6 +132,7 @@ else:
     kv_store.close()
 
 mount_path = kv_store.get("save_path")
+print(f"mount_path: {mount_path}")
 
 
 def on_scroll(e: ft.OnScrollEvent):
@@ -364,7 +365,8 @@ def main(page: ft.Page):
                     f"{mount_path}:{mount_path}",
                     "--name",
                     container_name,
-                    "webhook-listener",
+                    "--rm",
+                    "localhost/webhook-listener:latest",
                 ],
                 capture_output=True,
                 text=True,
