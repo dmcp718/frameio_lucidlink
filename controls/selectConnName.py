@@ -10,7 +10,7 @@ def create_conn_name_cntnr(kv_store):
         state = kv_store.get("connector_name")
         return state
 
-    def connector_changed(e, kv_store):
+    def connector_changed(e):
         connectorName.value = e.control.value
         kv_store.set("connector_name", connectorName.value)
         connectorName.update()
