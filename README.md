@@ -2,14 +2,17 @@
 
 This app configures a host system to create an ngrok tunnel and frame.io webhook listener. As the app receives webhooks from frame.io, the app initiates a download of the asset from frame.io to the designated LucidLink Filespace directory.
 
-To setup the app on a host system for the first time, double-click this file:
+Unzip the project directory in your chosen location. To setup the app on a host system for the first time, open Terminal and run these commands:
 
 ```
-setup_script.command
+cd path/to/directory-where-you-unzipped-file
+sudo chmod +x setup_script.command
+./setup_script.command
 ```
 
-Once the initial setup completes, double-click this file:
+Once the initial setup completes, run these commands:
 
 ```
-run_app.command
+source venv/bin/activate
+./run_app.command
 ```
