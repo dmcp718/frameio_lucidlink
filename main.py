@@ -157,18 +157,10 @@ consoleCol = ft.Column(
 
 
 def main(page: ft.Page):
-    global \
-        accountName, \
-        accountID, \
-        bodyColor, \
-        headingColor, \
-        fontSizeVal, \
-        webhooks, \
-        kv_store, \
-        consoleCol, \
-        sem, \
-        log_thread, \
-        portVal
+    global accountName, accountID
+    global bodyColor, headingColor, fontSizeVal
+    global webhooks, kv_store, consoleCol, sem
+    global log_thread, portVal, user_path
 
     createDB()
     exit_button = create_exit_app_button()
