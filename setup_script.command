@@ -7,14 +7,25 @@ then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# Install Python 3.10.13
-brew install python@3.10
+# Check if Python 3.10 is installed
+if ! brew list python@3.10 &> /dev/null
+then
+    echo "Python 3.10 is not installed. Installing Python 3.10..."
+    brew install python@3.10
+fi
 
-# Create a virtual environment
-/usr/local/opt/python@3.10/bin/python3.10 -m venv venv
+# Check if the virtual environment exists
+if [ ! -d "venv" ]
+then
+    echo "Virtual environment does not exist. Creating a new virtual environment..."
+    /usr/local/opt/python@3.10/bin/python3.10 -m venv venv
+fi
 
-# Activate the virtual environment
-source venv/bin/activate
-
-# Install the modules from requirements.txt
-pip install -r requirements.txt
+# Check if the requirements.txt file exists
+if [ -f "requirements.txt" ]
+then
+    echo "Installing modules from requirements.txt..."
+    pip install -r requirements.txt
+else
+    echo "requirements.txt not found. Skipping module installation."
+fi
