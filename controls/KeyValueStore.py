@@ -19,7 +19,7 @@ class KeyValueStore:
             os.chmod(dir_path, 0o700)
             print(f"Directory {dir_path} created successfully with permissions 700")
         else:
-            print(f"Directory {dir_path} already exists")
+            pass
 
     def _init_db(self):
         with self._connect() as conn:
