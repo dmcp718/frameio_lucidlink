@@ -57,6 +57,7 @@ def check_podman_machine_exists():
 machine_exists = check_podman_machine_exists()
 
 def init_and_start_machine(e, mount_path, createConn_progress_ind, stream_logs_callback):
+    global filepath
     if machine_exists:
         stream_logs_callback("INFO:     Podman machine already exists. Resetting.\n")
         try:
