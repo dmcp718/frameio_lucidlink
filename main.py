@@ -241,9 +241,9 @@ def main(page: ft.Page):
             await asyncio.sleep(1)  # Wait for 1 second before checking again
 
     def download_and_install_podman(e):
-        global userPath
+        global user_path
         url = "https://github.com/containers/podman/releases/download/v5.0.2/podman-installer-macos-universal.pkg"
-        filename = f"{userPath}/Downloads/podman-installer-macos-universal.pkg"
+        filename = f"{user_path}/Downloads/podman-installer-macos-universal.pkg"
         stream_logs_callback(
             "INFO:     Downloading Podman Installer macOS Universal...\n"
         )
