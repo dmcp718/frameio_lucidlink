@@ -7,6 +7,7 @@ Unzip the project directory in your chosen location. To setup the app on a host 
 ```
 cd path/to/directory-where-you-unzipped-file
 sudo chmod +x setup_script.command
+sudo chmod +x run_app.command
 ./setup_script.command
 ```
 
