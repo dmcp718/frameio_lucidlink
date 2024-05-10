@@ -1,6 +1,7 @@
 import flet as ft
 import subprocess
 import os
+import shutil
 from .KeyValueStore import KeyValueStore
 
 log_thread = None
@@ -28,8 +29,13 @@ def check_podman_installed():
     return os.path.exists("/opt/podman/bin/podman")
 
 def check_container_image():
+    podman_path = shutil.which("podman")
+    if not podman_path:
+        print("Podman is not installed. Please install Podman and try again.")
+        return False
+
     result = subprocess.run(
-        ["/opt/podman/bin/podman", "images", "webhook-listener"],
+        [podman_path, "images", "webhook-listener"],
         capture_output=True,
         text=True,
     )
