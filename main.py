@@ -460,6 +460,7 @@ def main(page: ft.Page):
                     update_button_states,
                 )
                 createConn_progress_ind.visible = False
+                btn_start_tunnel.disabled = False
                 page.update()
 
             thread = Thread(target=create_container_thread)
