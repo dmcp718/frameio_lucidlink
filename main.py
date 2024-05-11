@@ -192,12 +192,14 @@ def main(page: ft.Page):
     def update_button_states():
         podman_installed = check_podman_installed()
         container_image_exists = check_container_image()
+        print(f"container_image_exists: {container_image_exists}")
 
         nTokn = kv_store.get("nTokn")
         fTokn = kv_store.get("fTokn")
         connector_name = kv_store.get("connector_name")
         filepath = kv_store.get("filepath")
         selected_webhook = kv_store.get("selected_webhook")
+        print(f"selected_webhook: {selected_webhook}")
 
         btn_pMan_install.disabled = podman_installed
 
