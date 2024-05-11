@@ -34,7 +34,8 @@ def check_container_image():
         return False
 
     connector_created = kv_store.get("connector_created")
-    return connector_created
+    if connector_created:
+        return True
 
 def check_podman_machine_exists():
     try:
