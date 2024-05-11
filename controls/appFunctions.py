@@ -33,15 +33,8 @@ def check_container_image():
     if not podman_path:
         return False
 
-    result = subprocess.run(
-        [podman_path, "images", "webhook-listener"],
-        capture_output=True,
-        text=True,
-    )
-    if result.returncode != 0:
-        return False
-    else:
-        return "webhook-listener" in result.stdout
+    connector_created = kv_store.get("connector_created")
+    return connector_created
 
 def check_podman_machine_exists():
     try:
