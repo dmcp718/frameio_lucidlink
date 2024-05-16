@@ -1,7 +1,7 @@
 import flet as ft
 import os
 import json
-import ngrok
+import ngrok    
 from time import sleep
 from .KeyValueStore import KeyValueStore
 from .fioUpdateWebhook import updateWebhook
@@ -52,7 +52,8 @@ def start_tunnel(e, page, ngrokTunnStatus, configCol):
             configCol.update_tunnel_status()
             page.update()
 
-        except ngrok.NgrokError:
+        except Exception as e:
+            ngrokTunnStatus.value = f"Error starting tunnel: {e}"
             btn_start_tunnel.disabled = True
             btn_stop_tunnel.disabled = False
             page.update()

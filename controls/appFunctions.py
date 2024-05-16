@@ -52,6 +52,7 @@ def check_podman_machine_exists():
         return False
     
 machine_exists = check_podman_machine_exists()
+print("machine_exists: ", machine_exists)
 
 def init_and_start_machine(e, mount_path, createConn_progress_ind, stream_logs_callback):
     global filepath
