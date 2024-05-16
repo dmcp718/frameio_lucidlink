@@ -8,9 +8,9 @@ import flet as ft
 import requests
 
 from controls.appFunctions import (
-    check_container_image,
     check_podman_installed,
 )
+
 from controls.configCol import ConfigCol
 from controls.createConnctrButton import create_container, create_container_button
 from controls.exit_app import create_exit_app_button
@@ -187,48 +187,7 @@ def main(page: ft.Page):
         consoleCol.controls.append(
             ft.Text(value=f"{log}", color=bodyColor, size=10, selectable=True)
         )
-        consoleCol.update()
-
-    def update_button_states():
-        podman_installed = check_podman_installed()
-        container_image_exists = check_container_image()
-        print(f"container_image_exists: {container_image_exists}")
-
-        nTokn = kv_store.get("nTokn")
-        fTokn = kv_store.get("fTokn")
-        connector_name = kv_store.get("connector_name")
-        filepath = kv_store.get("filepath")
-        selected_webhook = kv_store.get("selected_webhook")
-        print(f"selected_webhook: {selected_webhook}")
-
-        btn_pMan_install.disabled = podman_installed
-
-        if podman_installed:
-            btn_create_cntnr.disabled = (
-                nTokn is None
-                or fTokn is None
-                or selected_webhook is None
-                or connector_name is None
-                or filepath is None
-            )
-
-            if container_image_exists:
-                btn_start_tunnel.disabled = (
-                    selected_webhook is None or nTokn is None or fTokn is None
-                )
-                btn_stop_tunnel.disabled = not ngrokTunnStatus.visible
-                btn_start_server.disabled = not ngrokTunnStatus.visible
-            else:
-                btn_start_tunnel.disabled = True
-                btn_stop_tunnel.disabled = True
-                btn_start_server.disabled = True
-        else:
-            btn_create_cntnr.disabled = True
-            btn_start_tunnel.disabled = True
-            btn_stop_tunnel.disabled = True
-            btn_start_server.disabled = True
-
-        page.update()
+        consoleCol.update()    
 
     async def wait_for_podman_installation():
         while not check_podman_installed():
@@ -390,12 +349,12 @@ def main(page: ft.Page):
         btn_stop_server.update()
 
         stop_result = subprocess.run(
-            ["/opt/podman/bin/podman", "stop", container_name],
+            ["/opt/podman/bin/podman", "stop", "--all"],
             capture_output=True,
             text=True,
         )
         rm_result = subprocess.run(
-            ["/opt/podman/bin/podman", "rm", container_name],
+            ["/opt/podman/bin/podman", "rm", "--all"],
             capture_output=True,
             text=True,
         )
@@ -457,7 +416,6 @@ def main(page: ft.Page):
                     createConn_progress_ind,
                     configCol,
                     stream_logs_callback,
-                    update_button_states,
                 )
                 createConn_progress_ind.visible = False
                 btn_start_tunnel.disabled = False
@@ -479,8 +437,8 @@ def main(page: ft.Page):
         createConn_progress_ind,
         configCol,
         stream_logs_callback,
-        update_button_states,
     )
+
     btn_create_cntnr.on_click = create_container_callback
 
     btn_start_server = ft.OutlinedButton(
@@ -600,7 +558,7 @@ def main(page: ft.Page):
         content=connNameCol,
     )
 
-    get_directory_dialog_instance = get_directory_dialog(kv_store, update_button_states)
+    get_directory_dialog_instance = get_directory_dialog(kv_store)
 
     selectDirCol = create_select_dir_cntr(kv_store, page, get_directory_dialog_instance)
 
@@ -707,7 +665,6 @@ def main(page: ft.Page):
         ],
     )
 
-    update_button_states()
     tunnState = btn_start_tunnel.disabled
     print(f"tunnState: {tunnState}")
 

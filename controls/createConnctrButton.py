@@ -19,7 +19,7 @@ db_file_path = f"{dir_path}/app.db"
 
 kv_store = KeyValueStore()
 
-def create_container(e, mount_path, createConn_progress_ind, configCol, stream_logs_callback, update_button_states):
+def create_container(e, mount_path, createConn_progress_ind, configCol, stream_logs_callback):
     try:
         init_and_start_machine(e, mount_path, createConn_progress_ind, stream_logs_callback)
         while not check_podman_machine_exists():
@@ -29,13 +29,12 @@ def create_container(e, mount_path, createConn_progress_ind, configCol, stream_l
             sleep(1)
         kv_store.set("connector_created", "True")
         stream_logs_callback("INFO:     Connector created successfully.")
-        update_button_states()  # Call the update_button_states function
         configCol.update_connector_status()
         e.page.update()
     except Exception as e:
         stream_logs_callback(f"ERROR:    {str(e)}")
     
-def create_container_button(mount_path, createConn_progress_ind, configCol, stream_logs_callback, update_button_states):
+def create_container_button(mount_path, createConn_progress_ind, configCol, stream_logs_callback):
     return ft.Container(
         width=150,
         content=ft.Row(
@@ -58,7 +57,7 @@ def create_container_button(mount_path, createConn_progress_ind, configCol, stre
                         ],
                         tight=True,
                     ),
-                    on_click=lambda _: create_container(_, mount_path, createConn_progress_ind, configCol, stream_logs_callback, update_button_states),
+                    on_click=lambda _: create_container(_, mount_path, createConn_progress_ind, configCol, stream_logs_callback),
                 ),
             ],
         ),

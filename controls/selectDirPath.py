@@ -4,7 +4,7 @@ headingColor = ft.colors.DEEP_PURPLE_300
 bodyColor = ft.colors.with_opacity(1, color=ft.colors.GREY_200)
 fontSizeVal = 12
 
-def get_directory_result(e: ft.FilePickerResultEvent, kv_store, update_button_states):
+def get_directory_result(e: ft.FilePickerResultEvent, kv_store):
     global workflowPath
     if e.path:
         path = e.path
@@ -15,7 +15,6 @@ def get_directory_result(e: ft.FilePickerResultEvent, kv_store, update_button_st
         kv_store.set("save_path", save_path)
         workflowPath.update()
         kv_store.close()
-        update_button_states()  # Call update_button_states() after directory selection
     else:
         workflowPath.value = "Cancelled!"
         workflowPath.update()
@@ -64,5 +63,5 @@ def create_select_dir_cntr(kv_store, page, get_directory_dialog):
 
     return selectDirCntr
 
-def get_directory_dialog(kv_store, update_button_states):
-    return ft.FilePicker(on_result=lambda e: get_directory_result(e, kv_store, update_button_states))
+def get_directory_dialog(kv_store):
+    return ft.FilePicker(on_result=lambda e: get_directory_result(e, kv_store))
