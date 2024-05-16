@@ -24,7 +24,7 @@ txt_tunnel_url = ft.Text(
     color=bodyColor,
 )
 
-def start_tunnel(e, page, ngrokTunnStatus, configCol):
+def start_tunnel(_, page, ngrokTunnStatus, configCol):
     global webhook_url, kv_store, ngrok_tunnel
     page.splash = ft.ProgressBar()
     btn_start_tunnel.disabled = False
